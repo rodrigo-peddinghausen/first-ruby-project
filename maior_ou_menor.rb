@@ -1,40 +1,57 @@
 #No Ruby toda função devolve alguma coisa (tipo void )
 #Linguagem interpretada
 
+def daBoasVindas #def para funcao
+    puts "Bem vindo ao jogo da advinhação \n \n"; # tô usando ';' só pra não ficar esquecendo quando for para outra linguagem. xD
 
-puts "Bem vindo ao jogo da advinhação \n \n"; # tô usando ';' só pra não ficar esquecendo quando for para outra linguagem. xD
+    puts "Qual é o seu nome?"; #entrada
+    
+    nome = gets; #saída
+    
+    puts "Começaremos o jogo, " + nome + "\n";
+end
 
-puts "Qual é o seu nome?"; #entrada
+def sorteiaNumeroSecreto
+    puts "Escolhendo um número secreto entre 0 e 200 \n";
+    sorteado = 122;
+    puts "Escolhido... que tal adivinhar o número secreto? \n \n ";
+    sorteado #retorna o que esta na ultima linha (nem precisa do return)
+end
 
-nome = gets; #saída
+def pedeUmNumero(tentativa, limiteDeTentativas)
+    puts "Tentativa " + tentativa.to_s + " de " + limiteDeTentativas.to_s; # .to_s é um parse para Sring
+    puts "Entre com o número: ";
+    chute = gets;
+    puts "Será que você acertou? Você chutou " + chute;
+    chute.to_i; # O .to_i é um parse para interger
+end
 
-puts "Começaremos o jogo, " + nome + "\n";
+def verificaSeAcertou(chute, numero_secreto)
+    acertou = chute == numero_secreto;
+    if acertou
+        puts "Acertou!";
+    else 
+        maior = chute < numero_secreto;
+        if maior
+            puts "O numero secreto é maior";
+        else
+            puts "O numero secreto é menor";
+        end
+    end
+    acertou
+end
 
-puts "Escolhendo um número secreto entre 0 e 200 \n";
-numero_secreto = 122;
-puts "Escolhido... que tal adivinhar o número secreto? \n \n "
+daBoasVindas; #chamada de funcao não precisa de '()'... hmmmm
+
+numero_secreto = sorteiaNumeroSecreto;
 
 limiteDeTentativas = 5;
 
 for tentativa in 1..limiteDeTentativas
-    puts "\n \n"
-    puts "Tentativa " + tentativa.to_s + " de " + limiteDeTentativas.to_s # .to_s é um parse para Sring
-    puts "Entre com o número: ";
-    chute = gets;
-    puts "Será que você acertou? Você chutou " + chute;
-
-# O .to_i é um parse para interger
-    acertou = chute.to_i == numero_secreto
-
-    if acertou
-        puts "acertou!"
+    
+    chute = pedeUmNumero tentativa, limiteDeTentativas; #usar parenteses nos parametros é, geralmente, opcional
+  
+    if verificaSeAcertou(chute, numero_secreto)
         break
-    else 
-        maior = chute.to_i < numero_secreto
-        if maior
-            puts "O numero secreto é maior"
-        else
-            puts "O numero secreto é menor"
-        end
     end
 end  #O 'for' também tem 'end'... que doideira
